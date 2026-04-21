@@ -1,10 +1,13 @@
 package controller;
 
+import dao.UserDAO;
+
 public class AuthController 
-{
+{   
+    UserDAO userdao = new UserDAO();
     public void auth(String username, String password)
     {
-     if(password.equals(UserDAO.getPassword(username)))
+     if(password.equals(userdao.getPassword(username)))
      {
          System.out.println("Login successful");
      }
@@ -16,7 +19,7 @@ public class AuthController
 
     public void register(String username, String password)
     {
-        if(UserDAO.addUser(username, password))
+        if(userdao.Registration(username, password))
         {
             System.out.println("Registration successful");
         }

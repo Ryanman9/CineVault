@@ -1,16 +1,18 @@
 package dao;
 
-import java.util.jdbc.DriverManager;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
-public class userDAO 
+public class UserDAO 
 {
-    Connection conn=null;
-
-    private static final String URL = "";
+    private final String URL = "";
     
-    public static String getPassword(Strign username)
+    public String getPassword(String username)
     {
-        try(conn =DriverManager.getConnection(URL))
+        try(Connection conn =DriverManager.getConnection(URL))
         {
             if(conn!=null)
             {
@@ -22,21 +24,18 @@ public class userDAO
                 {
                     return rs.getString("password");
                 }
-                else 
-                {
-                    return null;
-                }
             }
         }
         catch(SQLException e)
         {
             System.out.println("An error occurred while connecting to the database: " + e.getMessage());
         }
+        return null;
     }
 
-    public static boolean Registration(String username, String password)
+    public boolean Registration(String username, String password)
     {
-        try(conn=DriverManager.getConnection(URL))
+        try(Connection conn=DriverManager.getConnection(URL))
         {
             if(conn!=null)
             {
@@ -49,15 +48,12 @@ public class userDAO
                 {
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
             }
         }
         catch(SQLException e)
         {
             System.out.println("An error occurred while connecting to the database: " + e.getMessage());
         }
+        return false;
     }
 }

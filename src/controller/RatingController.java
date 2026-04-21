@@ -1,9 +1,12 @@
 package controller;
 
+import dao.RatingDAO;
+
 public class RatingController 
 {
-    public void getMovies(Double rating)
+    RatingDAO rating = new RatingDAO();
+    public void getMovies(Double Rating)
     {
-        RatingDAO.getMovies(rating);
+        rating.getMovies(Rating);
     }
 }

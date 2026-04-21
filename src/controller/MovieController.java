@@ -1,24 +1,27 @@
 package controller;
 
+import dao.MovieDAO;
+
 public class MovieController 
 {
-    public void addMovie(String title, String genre, int year)
+    MovieDAO movie = new MovieDAO();
+    public void addMovie(String title, String genre, int year, double rating)
     {
-        MovieDAO.addMovie(title, genre, year);        
+        movie.addMovie(title, genre, year, rating);        
     }
 
-    public void removeMovie(String title)
+    public void removeMovie(int movieId)
     {
-        MovieDAO.removeMovie(title);
+        movie.deleteMovie(movieId);
     }
 
-    public void updateMovie(String title, String genre, int year)
+    public void updateMovieRating(int movieId, double newRating)
     {
-        MovieDAO.updateMovie(title, genre, year);
+        movie.updateMovieRating(movieId, newRating);
     }
 
-    public void getAllMovies()
+    public void fetchAllMovies()
     {
-        MovieDAO.getAllMovies();
+        movie.fetchAllMovies();
     }
 }

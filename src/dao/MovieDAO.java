@@ -1,12 +1,16 @@
 package dao;
 
-import java.util.jdbc.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MovieDAO
 {    
-    public static void addMovie(String title, String genre, int year,Double rating)
+    public void addMovie(String title, String genre, int year,Double rating)
     {
-        try(conn=DBConnection.getConnection())
+        try(Connection conn=DBConnection.getConnection())
         {
             if(conn!=null)
             {
@@ -33,9 +37,9 @@ public class MovieDAO
         }
     }
 
-    public static void updateMovieRating(int movieId, double newRating)
+    public void updateMovieRating(int movieId, double newRating)
     {
-        try(conn=DBConnection.getConnection())
+        try(Connection conn=DBConnection.getConnection())
         {
             if(conn!=null)
             {
@@ -60,9 +64,9 @@ public class MovieDAO
         }
     }
 
-    public static void deleteMovie(int movieId)
+    public void deleteMovie(int movieId)
     {
-        try(conn=DriverManager.getConnection(URL))
+        try(Connection conn=DBConnection.getConnection())
         {
             if(conn!=null)
             {
@@ -86,9 +90,9 @@ public class MovieDAO
         }
     }
     
-    public static void fetchAllMovies()
+    public void fetchAllMovies()
     {
-        try(conn=DriverManager.getConnection(URL))
+        try(Connection conn=DBConnection.getConnection())
         {
             if(conn!=null)
             {

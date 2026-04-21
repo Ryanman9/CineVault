@@ -1,10 +1,15 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+
 public class RatingDAO 
 {
-    public static void getMovies(Double Rating)
+    public void getMovies(Double Rating)
     {
-        try(conn=DBConnection.getConnection())
+        try(Connection conn=DBConnection.getConnection())
         {
             if(conn!=null)
             {
