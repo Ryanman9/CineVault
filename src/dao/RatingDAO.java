@@ -1,41 +1,39 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class RatingDAO 
+import model.Movie;
+
+public class RatingDAO
 {
-    public void getMovies(Double Rating)
+    public List<Movie> getMoviesByRating(double rating) throws SQLException
     {
-        try(Connection conn=DBConnection.getConnection())
-        {
-            if(conn!=null)
-            {
-                String query1="Select title from movies where rating>=?";
-                String query2="Select year from movies where rating>=?";
-                PreparedStatement stmt1=conn.prepareStatement(query1);
-                PreparedStatement stmt2=conn.prepareStatement(query2);
-                stmt1.setDouble(1, Rating);
-                stmt2.setDouble(1, Rating);
-                ResultSet rs1=stmt1.executeQuery();
-                ResultSet rs2=stmt2.executeQuery();
-                if(rs1.next())
-                {
-                    System.out.println("Movies with rating greater than or equal to " + Rating + ":");
-                }
-                while(rs1.next() && rs2.next())
-                {
-                    String title=rs1.getString("title");
-                    int year=rs2.getInt("year");
-                    System.out.println(title + " (" + year + ")");
-                }
+        List<Movie> movies = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT id, title, genre, year, rating FROM movies WHERE rating >= ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+            stmt.setDouble(1, rating);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Movie movie = new Movie(
+                    rs.getInt("id"),
+                    rs.getString("title"),
+                    rs.getString("genre"),
+                    rs.getInt("year"),
+                    rs.getDouble("rating")
+                );
+                movies.add(movie);
             }
         }
-        catch(SQLException e)
-        {
-            System.out.println("An error occurred while connecting to the database: " + e.getMessage());
-        }
+
+        return movies;
     }
 }
