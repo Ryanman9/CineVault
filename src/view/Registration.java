@@ -1,42 +1,62 @@
 package view;
 
 import javax.swing.*;
+import controller.*;
 import java.awt.*;
 
 public class Registration extends JPanel {
 
+<<<<<<< HEAD
     @SuppressWarnings("unused")
     private MainFrame frame;
+=======
+	private MainFrame frame;
+>>>>>>> da61ff7bf84e4dcd5e58b49979d42e263e3b3ef6
 
-    public Registration(MainFrame frame) {
-        this.frame = frame;
+	AuthController ac = new AuthController();
 
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+	public Registration(MainFrame frame) {
+		this.frame = frame;
 
-        JTextField username = new JTextField(15);
-        JPasswordField password = new JPasswordField(15);
+		setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
 
-        JButton registerBtn = new JButton("Register");
-        JButton backBtn = new JButton("Back");
+		JTextField username = new JTextField(15);
+		JPasswordField password = new JPasswordField(15);
 
-        add(new JLabel("New Username:"));
-        add(username);
+		JButton registerBtn = new JButton("Register");
+		JButton backBtn = new JButton("Back");
 
-        add(new JLabel("New Password:"));
-        add(password);
+		add(new JLabel("New Username:"));
+		add(username);
 
-        add(registerBtn);
-        add(backBtn);
+		add(new JLabel("New Password:"));
+		add(password);
 
-        //redirect back to login page
-        backBtn.addActionListener(e -> {
-            frame.showPage("login");
-        });
+		add(registerBtn);
+		add(backBtn);
 
-        // redirect back to login page after registering data 
-        registerBtn.addActionListener(e -> {    
-        	JOptionPane.showMessageDialog(this, "Registered!");
-            frame.showPage("login");
-        });
-    }
+		// redirect back to login page
+		backBtn.addActionListener(e -> {
+			frame.showPage("login");
+		});
+
+		// redirect back to login page after registering data
+		registerBtn.addActionListener(e -> {
+			String uname = username.getText().trim();
+			String pass = new String(password.getPassword()).trim();
+
+			String message = ac.register(uname, pass);
+			if (message.equals("SUCCESS")) {
+				JOptionPane.showMessageDialog(this, "Registered!");
+				username.setText("");
+				password.setText("");
+				frame.showPage("login");
+			} else if (message.equals("Username and password are required.")) {
+				JOptionPane.showMessageDialog(this, message);
+			} else {
+				JOptionPane.showMessageDialog(this, message);
+			}
+
+		});
+	}
 }
