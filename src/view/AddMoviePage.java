@@ -51,7 +51,7 @@ public class AddMoviePage{
 			movieYear = year.getText();
 			movieRating = rating.getText();
 
-			movieController.addMovie(movieTitle, movieGenre, movieYear, movieRating);
+			// movieController.addMovie(movieTitle, movieGenre, movieYear, movieRating);
 			
 		});
 	}
