@@ -30,7 +30,7 @@ CineVault is a Java-based desktop application that allows users to manage and or
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/cineVault.git
+git clone https://github.com/Ryanman9/CineVault.git
 cd cineVault
 ```
 
