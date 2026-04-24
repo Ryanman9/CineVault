@@ -1,13 +1,16 @@
 package view;
 
 import javax.swing.*;
+import controller.*;
 import java.awt.*;
 
 public class Registration extends JPanel {
 
-    private MainFrame frame;
+	private MainFrame frame;
 
-    public Registration(MainFrame frame) {
+	AuthController ac = new AuthController();
+
+	public Registration(MainFrame frame) {
         this.frame = frame;
 
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
@@ -33,9 +36,25 @@ public class Registration extends JPanel {
         });
 
         // redirect back to login page after registering data 
-        registerBtn.addActionListener(e -> {    
+        registerBtn.addActionListener(e -> {
+        	String uname = username.getText().trim();
+            String pass = new String(password.getPassword()).trim();
+
+        	
+        	String message=ac.register(uname,pass);
+        	if(message.equals("SUCCESS"))
+        	{
         	JOptionPane.showMessageDialog(this, "Registered!");
             frame.showPage("login");
+        	}
+        	else if(message.equals("Username and password are required."))
+        	{
+        		JOptionPane.showMessageDialog(this, message);
+        	}
+        	else
+        	{
+        		JOptionPane.showMessageDialog(this, message);
+        	}
+        	
         });
-    }
-}
+}}
