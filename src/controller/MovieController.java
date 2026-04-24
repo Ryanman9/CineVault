@@ -1,27 +1,72 @@
 package controller;
 
+import java.sql.SQLException;
+
+import utils.Validator;
+import java.util.List;
 import dao.MovieDAO;
+import model.Movie;
 
 public class MovieController 
 {
-    MovieDAO movie = new MovieDAO();
-    public void addMovie(String title, String genre, int year, double rating)
+    private final MovieDAO movieDAO = new MovieDAO();
+
+    public String addMovie(String title, String genre, String yearText, String ratingText)
     {
-        movie.addMovie(title, genre, year, rating);        
+        if (Validator.isBlank(title) || Validator.isBlank(genre) || Validator.isBlank(yearText) || Validator.isBlank(ratingText)) {
+            return "All fields are required.";
+        }
+
+        int year;
+        double rating;
+
+        try {
+            year = Integer.parseInt(yearText.trim());
+            rating = Double.parseDouble(ratingText.trim());
+        } catch (NumberFormatException e) {
+            return "Year and rating must be numeric.";
+        }
+
+        if (!Validator.isValidMovieYear(year)) {
+            return "Year is out of valid range.";
+        }
+
+        Movie movie = new Movie(title.trim(), genre.trim(), year, rating);
+
+        try {
+            return movieDAO.addMovie(movie) ? "SUCCESS" : "Movie could not be added.";
+        } catch (SQLException e) {
+            return "Unable to add movie: " + e.getMessage();
+        }
     }
 
-    public void removeMovie(int movieId)
+    public boolean removeMovie(int movieId)
     {
-        movie.deleteMovie(movieId);
+        try {
+            return movieDAO.deleteMovie(movieId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void updateMovieRating(int movieId, double newRating)
+    public boolean updateMovieRating(int movieId, double newRating)
     {
-        movie.updateMovieRating(movieId, newRating);
+        try {
+            return movieDAO.updateMovieRating(movieId, newRating);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void fetchAllMovies()
+    public List<Movie> fetchAllMovies()
     {
-        movie.fetchAllMovies();
+        try {
+            return movieDAO.fetchAllMovies();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return List.of();
+        }
     }
 }

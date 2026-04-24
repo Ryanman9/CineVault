@@ -1,12 +1,21 @@
 package controller;
 
 import dao.RatingDAO;
+import model.Movie;
 
-public class RatingController 
-{
-    RatingDAO rating = new RatingDAO();
-    public void getMovies(Double Rating)
-    {
-        rating.getMovies(Rating);
+import java.sql.SQLException;
+import java.util.List;
+
+public class RatingController {
+
+    private final RatingDAO ratingDAO = new RatingDAO();
+
+    public List<Movie> getMoviesByRating(double rating) {
+        try {
+            return ratingDAO.getMoviesByRating(rating);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return List.of();
+        }
     }
 }
