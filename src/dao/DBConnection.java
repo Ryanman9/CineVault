@@ -14,10 +14,14 @@ public class DBConnection
     // Returns a new database connection
     public static Connection getConnection() throws SQLException
     {
-        // DriverManager establishes connection using given URL
+        try {
+        Class.forName("org.sqlite.JDBC"); // 👈 THIS LINE FIXES YOUR ERROR
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("SQLite JDBC driver not found.", e);
+        }
+
         Connection conn = DriverManager.getConnection(URL);
 
-        // Initialize tables
         initializeDatabase(conn);
 
         return conn;
