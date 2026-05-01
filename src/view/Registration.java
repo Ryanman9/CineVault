@@ -7,7 +7,8 @@ import java.awt.*;
 public class Registration extends JPanel {
 
     private MainFrame frame;
-    private AuthController ac = new AuthController();
+
+	AuthController ac = new AuthController();
 
     public Registration(MainFrame frame) {
         this.frame = frame;
