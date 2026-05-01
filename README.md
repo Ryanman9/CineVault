@@ -45,3 +45,25 @@ Download the SQLite JDBC driver and add it to your project dependencies:
 - Open the project in IntelliJ IDEA or Eclipse  
 - Locate the main class (e.g., `Main.java`)  
 - Run the application  
+
+
+---
+
+## 📸 Screenshots
+
+### 🔐 Login Page
+<img src="Screenshot/Login.png" width="600"/>
+
+### ®️ Register
+<img src="Screenshot/Register.png" width="600"/>
+
+### 🎬 Dashboard
+<img src="Screenshot/Dashboard.png" width="600"/>
+
+### ➕ Add Movie
+<img src="Screenshot/Add_Movie.png" width="600"/>
+
+### 📃 Movie List
+<img src="Screenshot/Movie_list.png" width="600"/>
+
+---
