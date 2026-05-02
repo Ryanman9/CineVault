@@ -15,7 +15,7 @@ public class DBConnection
     public static Connection getConnection() throws SQLException
     {
         try {
-        Class.forName("org.sqlite.JDBC"); // 👈 THIS LINE FIXES YOUR ERROR
+        Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
             throw new SQLException("SQLite JDBC driver not found.", e);
         }
