@@ -136,7 +136,7 @@ public class MovieDAO
 
         ps.setString(1, title);
         ps.setString(2, genre);
-        ps.setString(3, year);   // 🔥 stays TEXT
+        ps.setString(3, year);
         ps.setDouble(4, rating);
         ps.setInt(5, id);
 
